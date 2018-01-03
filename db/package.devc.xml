@@ -4,6 +4,7 @@
   <asx:values>
    <DEVC>
     <CTEXT>Data access interfaces and classes for flights universe</CTEXT>
+    <SRV_CHECK>X</SRV_CHECK>
    </DEVC>
    <PERMISSION>
     <SCOMPPDTLN>
