@@ -4,8 +4,6 @@
   <asx:values>
    <DEVC>
     <CTEXT>Data access interfaces and classes for flights universe</CTEXT>
-    <RESTRICTED>X</RESTRICTED>
-    <MAINPACK>X</MAINPACK>
    </DEVC>
   </asx:values>
  </asx:abap>
