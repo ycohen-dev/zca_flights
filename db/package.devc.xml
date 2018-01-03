@@ -5,6 +5,12 @@
    <DEVC>
     <CTEXT>Data access interfaces and classes for flights universe</CTEXT>
    </DEVC>
+   <PERMISSION>
+    <SCOMPPDTLN>
+     <INTF_NAME>S_NWDEMO_BASIS_VIRTUAL_DEFAULT</INTF_NAME>
+     <ERR_SEVER>NONE</ERR_SEVER>
+    </SCOMPPDTLN>
+   </PERMISSION>
   </asx:values>
  </asx:abap>
 </abapGit>
