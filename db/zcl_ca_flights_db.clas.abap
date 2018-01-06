@@ -15,8 +15,46 @@ ENDCLASS.
 CLASS ZCL_CA_FLIGHTS_DB IMPLEMENTATION.
 
 
-  method ZIF_CA_FLIGHTS_DB~CREATE_FLIGHT.
-  endmethod.
+  METHOD zif_ca_flights_db~create_flight.
+
+    DATA: ls_bapi_flight TYPE bapisflrep,
+          lt_bapiret2    TYPE bapiret2_t,
+          ls_bapiret2    LIKE LINE OF lt_bapiret2.
+
+    ls_bapi_flight-airlineid = iv_airline_code.
+    ls_bapi_flight-connectid = iv_flight_number.
+    ls_bapi_flight-flightdate = iv_flight_date.
+    ls_bapi_flight-price = iv_flight_cost.
+    ls_bapi_flight-curr = iv_flight_currency.
+    ls_bapi_flight-planetype = iv_plane_type.
+
+    CALL FUNCTION 'BAPI_FLIGHT_SAVEREPLICA'
+      EXPORTING
+        flight_data = ls_bapi_flight
+*       TEST_RUN    = ' '
+      TABLES
+*       EXTENSION_IN       =
+        return      = lt_bapiret2.
+
+
+    READ TABLE lt_bapiret2
+    WITH KEY type = 'E'
+    INTO ls_bapiret2.
+
+    IF sy-subrc = 0.
+
+      RAISE EXCEPTION TYPE zcx_flights_db_error
+      MESSAGE id ls_bapiret2-id
+      TYPE ls_bapiret2-type
+      NUMBER ls_bapiret2-number
+      WITH  ls_bapiret2-message_v1
+            ls_bapiret2-message_v2
+            ls_bapiret2-message_v3
+            ls_bapiret2-message_v4.
+
+    ENDIF.
+
+  ENDMETHOD.
 
 
   METHOD zif_ca_flights_db~get_airlines.
