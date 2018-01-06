@@ -20,13 +20,15 @@ interface ZIF_CA_FLIGHTS_BL
       !IV_FLIGHT_NUMBER type ZCA_FLIGHT_ST-FLIGHT_NUMBER
       !IV_FLIGHT_DATE type ZCA_FLIGHT_ST-FLIGHT_DATE
       !IV_NEW_COST type ZCA_FLIGHT_ST-FLIGHT_COST
-      !IO_MESSAGE_CONTAINER type ref to /IWFND/IF_MESSAGE_CONTAINER
+    returning
+      value(RT_BAPIRET_MESSAGES) type BAPIRET2_T
     raising
       ZCX_FLIGHTS_BL_ERROR .
   methods CREATE_NEW_FLIGHT
     importing
       !IS_FLIGHT_DATA type ZCA_FLIGHT_ST
-      !IO_MESSAGE_CONTAINER type ref to /IWFND/IF_MESSAGE_CONTAINER
+    returning
+      value(RT_BAPIRET_MESSAGES) type BAPIRET2_T
     raising
       ZCX_FLIGHTS_BL_ERROR .
 endinterface.
