@@ -7,5 +7,7 @@ interface ZIF_CA_FLIGHTS_BL
   methods UPDATE_FLIGHT_PRICE
     raising
       ZCX_FLIGHTS_BL_ERROR .
-  methods CREATE_NEW_FLIGHT .
+  methods CREATE_NEW_FLIGHT
+    raising
+      ZCX_FLIGHTS_BL_ERROR .
 endinterface.
