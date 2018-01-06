@@ -1,7 +1,7 @@
 class ZCL_CA_FLIGHTS_BL definition
   public
   final
-  create public .
+  create private .
 
 public section.
 
@@ -9,11 +9,13 @@ public section.
 
   methods CONSTRUCTOR
     importing
-      !IO_FLIGHTS_DB type ref to ZIF_CA_FLIGHTS_DB .
+      !IO_FLIGHTS_DB type ref to ZIF_CA_FLIGHTS_DB
+      !IO_POLICY_FACTORY type ref to ZIF_CA_POLICY_FACTORY .
 protected section.
 private section.
 
   data MO_DATA_ACCESS type ref to ZIF_CA_FLIGHTS_DB .
+  data MO_POLICY_FACTORY type ref to ZIF_CA_POLICY_FACTORY .
 ENDCLASS.
 
 
@@ -24,6 +26,7 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
   method CONSTRUCTOR.
 
     me->mo_data_access = io_flights_db.
+    me->mo_policy_factory = io_policy_factory.
 
   endmethod.
 
@@ -90,7 +93,9 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
           ls_updated_flight     LIKE LINE OF lt_flights,
           lt_airlines           TYPE zca_airline_tt,
           ls_airline            LIKE LINE OF lt_airlines,
-          lv_error_airline_desc TYPE string.
+          lv_error_airline_desc TYPE string,
+          lt_price_policies     TYPE zca_price_chng_policy_tt,
+          ls_policy_result      TYPE bapiret2.
 
     lr_airline_code = VALUE #( ( sign = 'I' option = 'EQ' low = iv_airline_code ) ).
     lr_flight_number = VALUE #( ( sign = 'I' option = 'EQ' low = iv_flight_number ) ).
@@ -130,8 +135,29 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
 
       IF sy-subrc = 0.
 
-        ls_updated_flight-flight_cost = iv_new_cost.
+        lt_price_policies =
+          mo_policy_factory->get_price_policies_by_airline( iv_airline_code =  iv_airline_code ).
 
+        LOOP AT lt_price_policies ASSIGNING FIELD-SYMBOL(<lo_policy>).
+
+          ls_policy_result = <lo_policy>->validate_flight_price(
+            EXPORTING
+              is_flight_data     = ls_updated_flight
+              iv_old_cost        = ls_updated_flight-flight_cost    " Airfare
+              iv_new_cost        = iv_new_cost
+          ).
+
+          IF ls_policy_result-type = 'E'.
+
+            APPEND ls_policy_result TO rt_bapiret_messages.
+
+          ENDIF.
+
+        ENDLOOP.
+
+        CHECK rt_bapiret_messages IS INITIAL.
+
+        ls_updated_flight-flight_cost = iv_new_cost.
 
         TRY .
 
@@ -161,7 +187,6 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
         ENDTRY.
 
       ENDIF.
-
 
     ENDIF.
 
