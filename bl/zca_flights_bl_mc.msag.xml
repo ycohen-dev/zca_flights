@@ -7,6 +7,14 @@
     <MASTERLANG>E</MASTERLANG>
     <STEXT>Flights message class</STEXT>
    </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCA_FLIGHTS_BL_MC</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>No flight exist of airline &amp;1 with number &amp;2 on the date &amp;3</TEXT>
+    </T100>
+   </T100>
   </asx:values>
  </asx:abap>
 </abapGit>
