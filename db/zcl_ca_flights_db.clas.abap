@@ -15,7 +15,7 @@ ENDCLASS.
 CLASS ZCL_CA_FLIGHTS_DB IMPLEMENTATION.
 
 
-  METHOD ZIF_CA_FLIGHTS_DB~CREATE_OR_UPD_FLIGHT.
+  METHOD zif_ca_flights_db~create_or_upd_flight.
 
     DATA: ls_bapi_flight TYPE bapisflrep,
           lt_bapiret2    TYPE bapiret2_t,
@@ -36,7 +36,6 @@ CLASS ZCL_CA_FLIGHTS_DB IMPLEMENTATION.
 *       EXTENSION_IN       =
         return      = lt_bapiret2.
 
-
     READ TABLE lt_bapiret2
     WITH KEY type = 'E'
     INTO ls_bapiret2.
@@ -44,13 +43,13 @@ CLASS ZCL_CA_FLIGHTS_DB IMPLEMENTATION.
     IF sy-subrc = 0.
 
       RAISE EXCEPTION TYPE zcx_flights_db_error
-      MESSAGE id ls_bapiret2-id
-      TYPE ls_bapiret2-type
-      NUMBER ls_bapiret2-number
-      WITH  ls_bapiret2-message_v1
-            ls_bapiret2-message_v2
-            ls_bapiret2-message_v3
-            ls_bapiret2-message_v4.
+        MESSAGE ID ls_bapiret2-id
+        TYPE ls_bapiret2-type
+        NUMBER ls_bapiret2-number
+        WITH ls_bapiret2-message_v1
+        ls_bapiret2-message_v2
+        ls_bapiret2-message_v3
+        ls_bapiret2-message_v4.
 
     ENDIF.
 
