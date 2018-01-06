@@ -20,6 +20,12 @@
      <MSGNR>001</MSGNR>
      <TEXT>Flight tickets cannot be free</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCA_FLIGHTS_BL_MC</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Price diffrence cannot top &amp;1 precent</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>

@@ -18,6 +18,7 @@ CLASS ZCL_CA_POLICY_FACTORY IMPLEMENTATION.
   method ZIF_CA_POLICY_FACTORY~GET_PRICE_POLICIES_BY_AIRLINE.
 
     APPEND NEW lcl_not_free( ) TO rt_policies.
+    APPEND NEW lcl_bound_precentage_change( iv_max_precent_delta = '50' ) TO rt_policies.
 
   endmethod.
 ENDCLASS.
