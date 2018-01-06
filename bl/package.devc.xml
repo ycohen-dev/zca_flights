@@ -5,6 +5,12 @@
    <DEVC>
     <CTEXT>Business Logic of flight universe</CTEXT>
    </DEVC>
+   <PERMISSION>
+    <SCOMPPDTLN>
+     <INTF_NAME>ZCA_FLIGHTS_DB_IF</INTF_NAME>
+     <ERR_SEVER>NONE</ERR_SEVER>
+    </SCOMPPDTLN>
+   </PERMISSION>
   </asx:values>
  </asx:abap>
 </abapGit>
