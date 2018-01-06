@@ -1,16 +1,32 @@
-class ZCL_CA_FLIGHTS_DB definition
-  public
-  final
-  create public .
+CLASS zcl_ca_flights_db DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PROTECTED .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_CA_FLIGHTS_DB .
-protected section.
-private section.
+    INTERFACES zif_ca_flights_db .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
 
 CLASS ZCL_CA_FLIGHTS_DB IMPLEMENTATION.
+
+
+  method ZIF_CA_FLIGHTS_DB~CREATE_FLIGHT.
+  endmethod.
+
+
+  method ZIF_CA_FLIGHTS_DB~GET_AIRLINES.
+  endmethod.
+
+
+  method ZIF_CA_FLIGHTS_DB~GET_FLIGHTS.
+  endmethod.
+
+
+  method ZIF_CA_FLIGHTS_DB~UPDATE_FLIGHT.
+  endmethod.
 ENDCLASS.
