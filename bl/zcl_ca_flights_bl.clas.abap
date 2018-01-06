@@ -28,8 +28,37 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
   endmethod.
 
 
-  method ZIF_CA_FLIGHTS_BL~CREATE_NEW_FLIGHT.
-  endmethod.
+  METHOD zif_ca_flights_bl~create_new_flight.
+
+
+    TRY .
+
+        mo_data_access->create_or_upd_flight(
+          EXPORTING
+            iv_airline_code      = is_flight_data-airline_code
+            iv_flight_number     = is_flight_data-flight_number
+            iv_flight_date       = is_flight_data-flight_date
+            iv_flight_cost       = is_flight_data-flight_cost
+            iv_flight_currency   = is_flight_data-flight_curr
+            iv_plane_type        = is_flight_data-plane_type
+        ).
+
+      CATCH zcx_flights_db_error INTO DATA(lo_exception).
+
+        APPEND VALUE bapiret2(
+            type       = lo_exception->if_t100_dyn_msg~msgty
+            id         = lo_exception->if_t100_message~t100key-msgid
+            number     = lo_exception->if_t100_message~t100key-msgno
+            message    = lo_exception->get_text( )
+            message_v1 = lo_exception->if_t100_dyn_msg~msgv1
+            message_v2 = lo_exception->if_t100_dyn_msg~msgv2
+            message_v3 = lo_exception->if_t100_dyn_msg~msgv3
+            message_v4 = lo_exception->if_t100_dyn_msg~msgv4
+        ) TO rt_bapiret_messages .
+
+    ENDTRY.
+
+  ENDMETHOD.
 
 
   method ZIF_CA_FLIGHTS_BL~GET_AIRLINES.
