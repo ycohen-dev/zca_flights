@@ -15,7 +15,7 @@ ENDCLASS.
 CLASS ZCL_CA_FLIGHTS_DB IMPLEMENTATION.
 
 
-  METHOD zif_ca_flights_db~create_flight.
+  METHOD ZIF_CA_FLIGHTS_DB~CREATE_OR_UPD_FLIGHT.
 
     DATA: ls_bapi_flight TYPE bapisflrep,
           lt_bapiret2    TYPE bapiret2_t,
@@ -178,8 +178,4 @@ CLASS ZCL_CA_FLIGHTS_DB IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
-
-
-  method ZIF_CA_FLIGHTS_DB~UPDATE_FLIGHT.
-  endmethod.
 ENDCLASS.

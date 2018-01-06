@@ -1,41 +1,34 @@
-INTERFACE zif_ca_flights_db
-  PUBLIC .
-
-  TYPES: tr_airline_code TYPE RANGE OF zca_airline_st-airline_code,
-         tr_flight_number TYPE RANGE OF zca_flight_st-flight_number,
-         tr_flight_date TYPE RANGE OF zca_flight_st-flight_date.
+interface ZIF_CA_FLIGHTS_DB
+  public .
 
 
-  METHODS get_flights
-    IMPORTING ir_airline_code TYPE tr_airline_code OPTIONAL
-              ir_flight_number TYPE tr_flight_number OPTIONAL
-              ir_flight_date TYPE tr_flight_date OPTIONAL
-    RETURNING
-      VALUE(rt_flights) TYPE zca_flight_tt .
+  types:
+    tr_airline_code TYPE RANGE OF zca_airline_st-airline_code .
+  types:
+    tr_flight_number TYPE RANGE OF zca_flight_st-flight_number .
+  types:
+    tr_flight_date TYPE RANGE OF zca_flight_st-flight_date .
 
-  METHODS get_airlines
-    IMPORTING ir_airline_code TYPE tr_airline_code OPTIONAL
-    RETURNING
-      VALUE(rt_airlines) TYPE zca_airline_tt.
-
-  METHODS create_flight
-    IMPORTING iv_airline_code TYPE zca_flight_st-airline_code
-              iv_flight_number TYPE zca_flight_st-flight_number
-              iv_flight_date TYPE zca_flight_st-flight_date
-              iv_flight_cost TYPE zca_flight_st-flight_cost
-              iv_flight_currency TYPE zca_flight_st-flight_curr
-              iv_plane_type TYPE zca_flight_st-plane_type
-    RAISING
-      zcx_flights_db_error .
-
-  METHODS update_flight
-    IMPORTING iv_airline_code TYPE zca_flight_st-airline_code
-              iv_flight_number TYPE zca_flight_st-flight_number
-              iv_flight_date TYPE zca_flight_st-flight_date
-              iv_flight_cost TYPE zca_flight_st-flight_cost
-              iv_flight_currency TYPE zca_flight_st-flight_curr
-    RAISING
-      zcx_flights_db_error .
-
-
-ENDINTERFACE.
+  methods GET_FLIGHTS
+    importing
+      !IR_AIRLINE_CODE type TR_AIRLINE_CODE optional
+      !IR_FLIGHT_NUMBER type TR_FLIGHT_NUMBER optional
+      !IR_FLIGHT_DATE type TR_FLIGHT_DATE optional
+    returning
+      value(RT_FLIGHTS) type ZCA_FLIGHT_TT .
+  methods GET_AIRLINES
+    importing
+      !IR_AIRLINE_CODE type TR_AIRLINE_CODE optional
+    returning
+      value(RT_AIRLINES) type ZCA_AIRLINE_TT .
+  methods CREATE_OR_UPD_FLIGHT
+    importing
+      !IV_AIRLINE_CODE type ZCA_FLIGHT_ST-AIRLINE_CODE
+      !IV_FLIGHT_NUMBER type ZCA_FLIGHT_ST-FLIGHT_NUMBER
+      !IV_FLIGHT_DATE type ZCA_FLIGHT_ST-FLIGHT_DATE
+      !IV_FLIGHT_COST type ZCA_FLIGHT_ST-FLIGHT_COST
+      !IV_FLIGHT_CURRENCY type ZCA_FLIGHT_ST-FLIGHT_CURR
+      !IV_PLANE_TYPE type ZCA_FLIGHT_ST-PLANE_TYPE
+    raising
+      ZCX_FLIGHTS_DB_ERROR .
+endinterface.
