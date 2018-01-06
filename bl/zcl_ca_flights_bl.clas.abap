@@ -118,7 +118,16 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
 
           CATCH zcx_flights_db_error INTO DATA(lo_exception).
 
-*            io_message_container->a
+            APPEND VALUE bapiret2(
+                type       = lo_exception->if_t100_dyn_msg~msgty
+                id         = lo_exception->if_t100_message~t100key-msgid
+                number     = lo_exception->if_t100_message~t100key-msgno
+                message    = lo_exception->get_text( )
+                message_v1 = lo_exception->if_t100_dyn_msg~msgv1
+                message_v2 = lo_exception->if_t100_dyn_msg~msgv2
+                message_v3 = lo_exception->if_t100_dyn_msg~msgv3
+                message_v4 = lo_exception->if_t100_dyn_msg~msgv4
+            ) TO rt_bapiret_messages .
 
         ENDTRY.
 
