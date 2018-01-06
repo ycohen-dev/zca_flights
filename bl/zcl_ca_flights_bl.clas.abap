@@ -33,10 +33,22 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
 
 
   method ZIF_CA_FLIGHTS_BL~GET_AIRLINES.
+
+    rt_airlines = mo_data_access->get_airlines(
+        ir_airline_code = ir_airline_code
+    ).
+
   endmethod.
 
 
   method ZIF_CA_FLIGHTS_BL~GET_FLIGHTS.
+
+    rt_flights = mo_data_access->get_flights(
+                 ir_airline_code  = ir_airline_code
+                 ir_flight_number = ir_flight_number
+                 ir_flight_date   = ir_flight_date
+             ).
+
   endmethod.
 
 
