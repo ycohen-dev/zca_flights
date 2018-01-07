@@ -11,6 +11,9 @@ public section.
     importing
       !IO_FLIGHTS_DB type ref to ZIF_CA_FLIGHTS_DB
       !IO_POLICY_FACTORY type ref to ZIF_CA_POLICY_FACTORY .
+  class-methods GET_INSTANCE
+    returning
+      value(RO_FLIGHT_BL) type ref to ZIF_CA_FLIGHTS_BL .
 protected section.
 private section.
 
@@ -28,6 +31,10 @@ CLASS ZCL_CA_FLIGHTS_BL IMPLEMENTATION.
     me->mo_data_access = io_flights_db.
     me->mo_policy_factory = io_policy_factory.
 
+  endmethod.
+
+
+  method GET_INSTANCE.
   endmethod.
 
 
